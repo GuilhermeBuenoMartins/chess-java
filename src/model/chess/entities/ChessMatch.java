@@ -1,6 +1,7 @@
 package model.chess.entities;
 
 import model.board.entities.Board;
+import model.board.entities.Position;
 import model.chess.enumerations.Color;
 
 public class ChessMatch {
@@ -21,6 +22,7 @@ public class ChessMatch {
 
     public ChessMatch() {
         this.board = new Board(8, 8);
+        initialSetup();
     }
 
     public ChessPiece[][] getPieces() {
@@ -43,5 +45,10 @@ public class ChessMatch {
 
     public ChessPiece replacePromotedPiece(String type) {
         return null;
+    }
+
+    private void initialSetup() {
+        board.placePiece(new Rook(Color.WHITE, this.board), new Position(0, 0));
+        board.placePiece(new King(Color.BLACK, this.board), new Position(7, 3));
     }
 }

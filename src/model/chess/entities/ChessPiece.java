@@ -1,8 +1,8 @@
 package model.chess.entities;
 
+import model.board.entities.Board;
 import model.board.entities.Piece;
 import model.board.entities.Position;
-import model.chess.entities.ChessPosition;
 import model.chess.enumerations.Color;
 
 public abstract class ChessPiece extends Piece {
@@ -10,6 +10,11 @@ public abstract class ChessPiece extends Piece {
     private Color color;
 
     private int moveCount;
+
+    public ChessPiece(Color color, Board board) {
+        super(board);
+        this.color = color;
+    }
 
     public ChessPosition getChessPosition() {
         // TODO: write the code

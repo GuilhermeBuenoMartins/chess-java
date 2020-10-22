@@ -1,8 +1,14 @@
 package model.chess.entities;
 
+import model.board.entities.Board;
 import model.board.entities.Position;
+import model.chess.enumerations.Color;
 
 public class Pawn extends ChessPiece {
+
+    public Pawn(Color color, Board board) {
+        super(color, board);
+    }
 
     @Override
     public boolean[][] possibleMoves() {

@@ -43,7 +43,7 @@ public class Board {
     }
 
     public void placePiece(Piece piece, Position position) {
-
+        this.pieces[position.getRow()][position.getColumn()] = piece;
     }
 
     public Piece removePiece(Position position) {
