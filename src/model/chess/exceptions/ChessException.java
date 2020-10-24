@@ -1,10 +1,10 @@
 package model.chess.exceptions;
 
-public class ChessException extends Exception {
+public class ChessException extends RuntimeException {
 
     private static final long serialVersionUID = 1l;
 
-    public void ChessException(String msg) {
-        new Exception(msg);
+    public ChessException(String msg) {
+        super(msg);
     }
 }

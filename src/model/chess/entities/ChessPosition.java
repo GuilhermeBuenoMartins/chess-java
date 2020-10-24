@@ -1,6 +1,7 @@
 package model.chess.entities;
 
 import model.board.entities.Position;
+import model.chess.exceptions.ChessException;
 
 public class ChessPosition {
 
@@ -8,13 +9,32 @@ public class ChessPosition {
 
     private int row;
 
-    protected Position toPosition() {
-        // TODO: write the code
-        return null;
+    public ChessPosition(char column, int row) {
+        if ((column < 'a' || column > 'h') || (row < 1 || row > 8)) {
+            throw new ChessException("Error instanting ChessPosition. Valid values ar form a1 to h8");
+        }
+        this.column = column;
+        this.row = row;
     }
 
-    protected ChessPosition fromPosition(Position position) {
-        // TODO: write the code
-        return null;
+    public char getColumn() {
+        return column;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    protected Position toPosition() {
+        return new Position(8 - this.row, this.column - 'a');
+    }
+
+    protected static ChessPosition fromPosition(Position position) {
+        return new ChessPosition((char) ('a' - position.getColumn()), position.getRow() - 8);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%c%s", this.column, this.row);
     }
 }
