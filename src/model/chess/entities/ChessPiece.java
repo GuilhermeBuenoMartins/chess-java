@@ -16,6 +16,10 @@ public abstract class ChessPiece extends Piece {
         this.color = color;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
     public ChessPosition getChessPosition() {
         // TODO: write the code
         return null;
