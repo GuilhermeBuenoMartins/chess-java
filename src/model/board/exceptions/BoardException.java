@@ -1,10 +1,10 @@
 package model.board.exceptions;
 
-public class BoardException extends Exception {
+public class BoardException extends RuntimeException {
 
     private static final long serialVersionUID = 1l;
 
-    public void BoardException(String msg) {
-        new Exception(msg);
+    public BoardException(String msg) {
+        super(msg);
     }
 }
