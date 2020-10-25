@@ -2,7 +2,11 @@ package application;
 
 import model.board.entities.Piece;
 import model.chess.entities.ChessPiece;
+import model.chess.entities.ChessPosition;
 import model.chess.enumerations.Color;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class UInterface {
 
@@ -41,6 +45,24 @@ public class UInterface {
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+
+    // https://stackoverflow.com/questions/2979383/java-clear-the-console
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    public static ChessPosition readChessPosition(Scanner scanner) {
+        try {
+            String string = scanner.next();
+            char column = string.charAt(0);
+            int row = Integer.parseInt(string.substring(1));
+            return new ChessPosition(column, row);
+        }catch (RuntimeException e) {
+            throw new InputMismatchException("Error reading ChessPosition. Valid values are from a1 to h8.");
+        }
+
+    }
 
     public static void printBoard(ChessPiece[][] pieces) {
         for (int i = 0; i < pieces.length; i++) {

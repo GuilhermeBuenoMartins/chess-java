@@ -1,8 +1,10 @@
 package model.chess.entities;
 
 import model.board.entities.Board;
+import model.board.entities.Piece;
 import model.board.entities.Position;
 import model.chess.enumerations.Color;
+import model.chess.exceptions.ChessException;
 
 public class ChessMatch {
 
@@ -39,8 +41,24 @@ public class ChessMatch {
         return null;
     }
 
-    public ChessPosition performChessMove(ChessPosition source, ChessPosition targetPosition) {
-        return null;
+    private void validateSourcePosition(Position position) {
+        if (!this.board.thereIsAPiece(position)) {
+            throw new ChessException("There is no piece on source position.");
+        }
+    }
+
+    private Piece makeMove(Position sourcePosition, Position targetPosition) {
+        Piece piece = this.board.removePiece(sourcePosition);
+        Piece capturedPiece = this.board.removePiece(targetPosition);
+        this.board.placePiece(piece, targetPosition);
+        return capturedPiece;
+    }
+
+    public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
+        Position source = sourcePosition.toPosition();
+        Position target = targetPosition.toPosition();
+        validateSourcePosition(source);
+        return (ChessPiece) makeMove(source, target);
     }
 
     public ChessPiece replacePromotedPiece(String type) {
