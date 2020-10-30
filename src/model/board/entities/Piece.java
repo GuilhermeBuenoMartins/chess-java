@@ -25,12 +25,18 @@ public abstract class Piece {
     public abstract boolean[][] possibleMoves();
 
     public boolean posssibleMove(Position position) {
-        // TODO: write the code
-        return false;
+        return possibleMoves()[position.getRow()][position.getColumn()];
     }
 
     public boolean isThereAnyPossibleMove() {
-        // TODO: write the code
+        boolean[][] possibleMoves = possibleMoves();
+        for (int i = 0; i < possibleMoves.length; i ++) {
+            for (int j = 0; j < possibleMoves.length; j ++){
+                if (possibleMoves[i][j]) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
