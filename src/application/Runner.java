@@ -15,13 +15,13 @@ public class Runner {
         while (true) {
             try {
                 UInterface.clearScreen();
-                UInterface.printBoard(chessMatch.getPieces());
+                UInterface.printMatch(chessMatch);
                 System.out.println();
                 System.out.print("Source: ");
                 ChessPosition source = UInterface.readChessPosition(scanner);
                 boolean[][] possibleMoves = chessMatch.possibleMoves(source);
                 UInterface.clearScreen();
-                UInterface.printBoard(chessMatch.getPieces(), possibleMoves);
+                UInterface.printMatch(chessMatch, possibleMoves);
                 System.out.println();
                 System.out.print("Target: ");
                 ChessPosition target = UInterface.readChessPosition(scanner);

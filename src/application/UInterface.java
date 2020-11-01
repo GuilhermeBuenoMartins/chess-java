@@ -1,6 +1,7 @@
 package application;
 
 import model.board.entities.Piece;
+import model.chess.entities.ChessMatch;
 import model.chess.entities.ChessPiece;
 import model.chess.entities.ChessPosition;
 import model.chess.enumerations.Color;
@@ -63,6 +64,20 @@ public class UInterface {
             throw new InputMismatchException("Error reading ChessPosition. Valid values are from a1 to h8.");
         }
 
+    }
+
+    public static void printMatch(ChessMatch chessMatch) {
+        printBoard(chessMatch.getPieces());
+        System.out.println();
+        System.out.println("Turn: " + chessMatch.getTurn());
+        System.out.println("Waiting player: " + chessMatch.getCurrentPlayer());
+    }
+
+    public static void printMatch(ChessMatch chessMatch,  boolean[][] possibleMoves) {
+        printBoard(chessMatch.getPieces(), possibleMoves);
+        System.out.println();
+        System.out.println("Turn: " + chessMatch.getTurn());
+        System.out.println("Waiting player: " + chessMatch.getCurrentPlayer());
     }
 
     public static void printBoard(ChessPiece[][] pieces) {
