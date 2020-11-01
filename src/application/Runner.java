@@ -1,10 +1,14 @@
 package application;
 
+import model.board.entities.Piece;
 import model.chess.entities.ChessMatch;
 import model.chess.entities.ChessPiece;
 import model.chess.entities.ChessPosition;
 import model.chess.exceptions.ChessException;
+
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Runner {
@@ -12,10 +16,11 @@ public class Runner {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ChessMatch chessMatch = new ChessMatch();
+        List<Piece> capturedPieces = new ArrayList<>();
         while (true) {
             try {
                 UInterface.clearScreen();
-                UInterface.printMatch(chessMatch);
+                UInterface.printMatch(chessMatch, capturedPieces);
                 System.out.println();
                 System.out.print("Source: ");
                 ChessPosition source = UInterface.readChessPosition(scanner);
@@ -26,6 +31,9 @@ public class Runner {
                 System.out.print("Target: ");
                 ChessPosition target = UInterface.readChessPosition(scanner);
                 ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
+                if (capturedPiece != null) {
+                    capturedPieces.add(capturedPiece);
+                }
             } catch (ChessException e) {
                 System.out.println(e.getMessage());
                 scanner.nextLine();

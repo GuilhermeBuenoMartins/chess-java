@@ -6,8 +6,12 @@ import model.chess.entities.ChessPiece;
 import model.chess.entities.ChessPosition;
 import model.chess.enumerations.Color;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class UInterface {
 
@@ -66,8 +70,10 @@ public class UInterface {
 
     }
 
-    public static void printMatch(ChessMatch chessMatch) {
+    public static void printMatch(ChessMatch chessMatch, List<Piece> capturedPieces) {
         printBoard(chessMatch.getPieces());
+        System.out.println();
+        printCapturedPieces(capturedPieces);
         System.out.println();
         System.out.println("Turn: " + chessMatch.getTurn());
         System.out.println("Waiting player: " + chessMatch.getCurrentPlayer());
@@ -76,8 +82,20 @@ public class UInterface {
     public static void printMatch(ChessMatch chessMatch,  boolean[][] possibleMoves) {
         printBoard(chessMatch.getPieces(), possibleMoves);
         System.out.println();
+        System.out.println();
         System.out.println("Turn: " + chessMatch.getTurn());
         System.out.println("Waiting player: " + chessMatch.getCurrentPlayer());
+    }
+
+    public static void printCapturedPieces(List<Piece> capturedPieces) {
+        List<Piece> capturedWhite = capturedPieces.stream().filter(piece -> ((ChessPiece) piece).getColor() == Color.WHITE).collect(Collectors.toList());
+        List<Piece> capturedBlack = capturedPieces.stream().filter(piece -> ((ChessPiece) piece).getColor() == Color.BLACK).collect(Collectors.toList());
+        System.out.println("Captured pieces:");
+        System.out.print(ANSI_YELLOW + "White: ");
+        System.out.println(Arrays.toString(capturedWhite.toArray()));
+        System.out.print(ANSI_BLUE + "Black: ");
+        System.out.print(Arrays.toString(capturedBlack.toArray()));
+        System.out.println(ANSI_RESET);
     }
 
     public static void printBoard(ChessPiece[][] pieces) {

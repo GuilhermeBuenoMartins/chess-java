@@ -6,11 +6,18 @@ import model.board.entities.Position;
 import model.chess.enumerations.Color;
 import model.chess.exceptions.ChessException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChessMatch {
 
     private int turn;
 
     private Color currentPlayer;
+
+    private List<Piece> piecesOnTheBoard;
+
+    private List<Piece> capturedPieces;
 
     private boolean check;
 
@@ -24,6 +31,8 @@ public class ChessMatch {
 
     public ChessMatch() {
         this.board = new Board(8, 8);
+        this.piecesOnTheBoard = new ArrayList<>();
+        this.capturedPieces = new ArrayList<>();
         this.currentPlayer = Color.WHITE;
         initialSetup();
     }
@@ -43,8 +52,8 @@ public class ChessMatch {
 
     public ChessPiece[][] getPieces() {
         ChessPiece[][] chessPiece = new ChessPiece[this.board.getRows()][this.board.getColumns()];
-        for (int i = 0; i < this.board.getRows(); i ++){
-            for (int j = 0; j < this.board.getColumns(); j ++){
+        for (int i = 0; i < this.board.getRows(); i++) {
+            for (int j = 0; j < this.board.getColumns(); j++) {
                 chessPiece[i][j] = (ChessPiece) this.board.piece(i, j);
             }
         }
@@ -62,12 +71,12 @@ public class ChessMatch {
             throw new ChessException("There is no piece on source position.");
         } else if (this.currentPlayer != ((ChessPiece) this.board.piece(position)).getColor()) {
             throw new ChessException("The chosen piece is not yours");
-        }else if (!this.board.piece(position).isThereAnyPossibleMove()) {
+        } else if (!this.board.piece(position).isThereAnyPossibleMove()) {
             throw new ChessException("There is no possible moves for the chosen piece");
         }
     }
 
-    private void validateTargetPosition(Position source,Position target) {
+    private void validateTargetPosition(Position source, Position target) {
         if (!this.board.piece(source).posssibleMove(target)) {
             throw new ChessException("The chosen piece can't move to target position");
         }
@@ -78,6 +87,10 @@ public class ChessMatch {
         Piece capturedPiece = this.board.removePiece(targetPosition);
         this.board.placePiece(piece, targetPosition);
         nextTurn();
+        if (capturedPiece != null) {
+            this.piecesOnTheBoard.remove(capturedPiece);
+            this.capturedPieces.add(capturedPiece);
+        }
         return capturedPiece;
     }
 
@@ -95,6 +108,7 @@ public class ChessMatch {
 
     private void placeNewPiece(char column, int row, ChessPiece piece) {
         this.board.placePiece(piece, new ChessPosition(column, row).toPosition());
+        this.piecesOnTheBoard.add(piece);
     }
 
     private void initialSetup() {
