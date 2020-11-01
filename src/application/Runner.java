@@ -19,6 +19,9 @@ public class Runner {
                 System.out.println();
                 System.out.print("Source: ");
                 ChessPosition source = UInterface.readChessPosition(scanner);
+                boolean[][] possibleMoves = chessMatch.possibleMoves(source);
+                UInterface.clearScreen();
+                UInterface.printBoard(chessMatch.getPieces(), possibleMoves);
                 System.out.println();
                 System.out.print("Target: ");
                 ChessPosition target = UInterface.readChessPosition(scanner);
