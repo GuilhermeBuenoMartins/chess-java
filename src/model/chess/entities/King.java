@@ -13,8 +13,9 @@ public class King extends ChessPiece {
     @Override
     public boolean[][] possibleMoves() {
         boolean[][] possibleMoves = new boolean[getBoard().getRows()][getBoard().getColumns()];
+        Position position = new Position(this.position.getRow(), this.position.getColumn());
         // Left above
-        Position position = new Position(this.position.getRow() - 1, this.position.getColumn() - 1);
+        position.setValue(this.position.getRow() -1, this.position.getColumn() - 1);
         if (this.board.positionExists(position) && !this.board.thereIsAPiece(position)) {
             possibleMoves[position.getRow()][position.getColumn()] = true;
         }
@@ -54,7 +55,7 @@ public class King extends ChessPiece {
             possibleMoves[position.getRow()][position.getColumn()] = true;
         }
         // Left below
-        position.setValue(position.getRow() + 1, position.getColumn() - 1);
+        position.setValue(this.position.getRow() + 1, this.position.getColumn() - 1);
         if (this.board.positionExists(position) && !this.board.thereIsAPiece(position)) {
             possibleMoves[position.getRow()][position.getColumn()] = true;
         }
@@ -62,7 +63,7 @@ public class King extends ChessPiece {
             possibleMoves[position.getRow()][position.getColumn()] = true;
         }
         // Below
-        position.setValue(position.getRow() + 1, this.position.getColumn());
+        position.setValue(this.position.getRow() + 1, this.position.getColumn());
         if (this.board.positionExists(position) && !this.board.thereIsAPiece(position)) {
             possibleMoves[position.getRow()][position.getColumn()] = true;
         }
@@ -70,7 +71,7 @@ public class King extends ChessPiece {
             possibleMoves[position.getRow()][position.getColumn()] = true;
         }
         // Right below
-        position.setValue(position.getRow() + 1, position.getColumn() + 1);
+        position.setValue(this.position.getRow() + 1, this. position.getColumn() + 1);
         if (this.board.positionExists(position) && !this.board.thereIsAPiece(position)) {
             possibleMoves[position.getRow()][position.getColumn()] = true;
         }

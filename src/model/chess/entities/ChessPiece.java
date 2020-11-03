@@ -21,8 +21,7 @@ public abstract class ChessPiece extends Piece {
     }
 
     public ChessPosition getChessPosition() {
-        // TODO: write the code
-        return null;
+        return ChessPosition.fromPosition(super.position);
     }
 
     protected boolean isThereOpponentPiece(Position position) {
