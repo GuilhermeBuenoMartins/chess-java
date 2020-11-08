@@ -17,7 +17,7 @@ public class Runner {
         Scanner scanner = new Scanner(System.in);
         ChessMatch chessMatch = new ChessMatch();
         List<Piece> capturedPieces = new ArrayList<>();
-        while (true) {
+        while (!chessMatch.getCheckMate()) {
             try {
                 UInterface.clearScreen();
                 UInterface.printMatch(chessMatch, capturedPieces);
@@ -44,6 +44,8 @@ public class Runner {
                 scanner.nextLine();
             }
         }
+        UInterface.clearScreen();
+        UInterface.printMatch(chessMatch, capturedPieces);
 
     }
 
