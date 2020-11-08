@@ -143,7 +143,8 @@ public class ChessMatch {
     }
 
     private Piece makeMove(Position sourcePosition, Position targetPosition) {
-        Piece piece = this.board.removePiece(sourcePosition);
+        ChessPiece piece = (ChessPiece) this.board.removePiece(sourcePosition);
+        piece.increaseMoveCount();
         Piece capturedPiece = this.board.removePiece(targetPosition);
         this.board.placePiece(piece, targetPosition);
         if (capturedPiece != null) {
@@ -154,7 +155,8 @@ public class ChessMatch {
     }
 
     private void undoMove(Position sourcePosition, Position targetPosition, Piece capturedPiece) {
-        Piece piece = this.board.removePiece(targetPosition);
+        ChessPiece piece = (ChessPiece) this.board.removePiece(targetPosition);
+        piece.decreaseMoveCount();
         this.board.placePiece(piece, sourcePosition);
         if (capturedPiece != null) {
             this.capturedPieces.remove(capturedPiece);
@@ -200,8 +202,8 @@ public class ChessMatch {
 //        placeNewPiece('g', 1, new Knight(Color.WHITE, this.board));
         placeNewPiece('h', 1, new Rook(Color.WHITE, this.board));
 //        placeNewPiece('a', 2, new Pawn(Color.WHITE, this.board));
-//        placeNewPiece('b', 2, new Pawn(Color.WHITE, this.board));
-//        placeNewPiece('c', 2, new Pawn(Color.WHITE, this.board));
+        placeNewPiece('b', 2, new Pawn(Color.WHITE, this.board));
+        placeNewPiece('c', 2, new Pawn(Color.WHITE, this.board));
 //        placeNewPiece('d', 2, new Pawn(Color.WHITE, this.board));
 //        placeNewPiece('e', 2, new Pawn(Color.WHITE, this.board));
 //        placeNewPiece('f', 2, new Pawn(Color.WHITE, this.board));
@@ -221,8 +223,8 @@ public class ChessMatch {
 //        placeNewPiece('c', 7, new Pawn(Color.BLACK, this.board));
 //        placeNewPiece('d', 7, new Pawn(Color.BLACK, this.board));
 //        placeNewPiece('e', 7, new Pawn(Color.BLACK, this.board));
-//        placeNewPiece('f', 7, new Pawn(Color.BLACK, this.board));
-//        placeNewPiece('g', 7, new Pawn(Color.BLACK, this.board));
+        placeNewPiece('f', 7, new Pawn(Color.BLACK, this.board));
+        placeNewPiece('g', 7, new Pawn(Color.BLACK, this.board));
 //        placeNewPiece('h', 7, new Pawn(Color.BLACK, this.board));
     }
 
