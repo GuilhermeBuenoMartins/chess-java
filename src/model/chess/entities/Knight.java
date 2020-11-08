@@ -12,7 +12,41 @@ public class Knight extends ChessPiece {
 
     @Override
     public boolean[][] possibleMoves() {
-        return new boolean[0][];
+        boolean[][] possiblesMoves = new boolean[this.board.getRows()][this.board.getColumns()];
+        Position position = new Position(this.position.getRow(), this.position.getColumn());
+        position.setValue(this.position.getRow() - 2, this.position.getColumn() - 1);
+        if (this.board.positionExists(position) && (!this.board.thereIsAPiece(position) || super.isThereOpponentPiece(position))) {
+            possiblesMoves[position.getRow()][position.getColumn()] = true;
+        }
+        position.setValue(this.position.getRow() - 2, this.position.getColumn() + 1);
+        if (this.board.positionExists(position) && (!this.board.thereIsAPiece(position) || super.isThereOpponentPiece(position))) {
+            possiblesMoves[position.getRow()][position.getColumn()] = true;
+        }
+        position.setValue(this.position.getRow() - 1, this.position.getColumn() + 2);
+        if (this.board.positionExists(position) && (!this.board.thereIsAPiece(position) || super.isThereOpponentPiece(position))) {
+            possiblesMoves[position.getRow()][position.getColumn()] = true;
+        }
+        position.setValue(this.position.getRow() - 1, this.position.getColumn() - 2);
+        if (this.board.positionExists(position) && (!this.board.thereIsAPiece(position) || super.isThereOpponentPiece(position))) {
+            possiblesMoves[position.getRow()][position.getColumn()] = true;
+        }
+        position.setValue(this.position.getRow() + 1, this.position.getColumn() + 2);
+        if (this.board.positionExists(position) && (!this.board.thereIsAPiece(position) || super.isThereOpponentPiece(position))) {
+            possiblesMoves[position.getRow()][position.getColumn()] = true;
+        }
+        position.setValue(this.position.getRow() + 1, this.position.getColumn() - 2);
+        if (this.board.positionExists(position) && (!this.board.thereIsAPiece(position) || super.isThereOpponentPiece(position))) {
+            possiblesMoves[position.getRow()][position.getColumn()] = true;
+        }
+        position.setValue(this.position.getRow() + 2, this.position.getColumn() - 1);
+        if (this.board.positionExists(position) && (!this.board.thereIsAPiece(position) || super.isThereOpponentPiece(position))) {
+            possiblesMoves[position.getRow()][position.getColumn()] = true;
+        }
+        position.setValue(this.position.getRow() + 2, this.position.getColumn() + 1);
+        if (this.board.positionExists(position) && (!this.board.thereIsAPiece(position) || super.isThereOpponentPiece(position))) {
+            possiblesMoves[position.getRow()][position.getColumn()] = true;
+        }
+        return possiblesMoves;
     }
 
     @Override
