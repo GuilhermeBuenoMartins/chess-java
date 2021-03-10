@@ -6,8 +6,16 @@ import model.chess.enumerations.Color;
 
 public class King extends ChessPiece {
 
-    public King(Color color, Board board) {
+    ChessMatch chessMatch;
+
+    public King(Color color, Board board, ChessMatch chessMatch) {
         super(color, board);
+        this.chessMatch = chessMatch;
+    }
+
+    private boolean testRookCastling(Position position) {
+        ChessPiece piece = (ChessPiece) getBoard().piece(position);
+        return piece != null && piece instanceof Rook && piece.getColor() == getColor() && piece.getMoveCount() == 0;
     }
 
     @Override
@@ -77,6 +85,29 @@ public class King extends ChessPiece {
         }
         if (this.board.positionExists(position) && isThereOpponentPiece(position)) {
             possibleMoves[position.getRow()][position.getColumn()] = true;
+        }
+        // Special move castling
+        position.setValue(this.position.getRow(), this. position.getColumn());
+        if(getMoveCount() == 0 && !chessMatch.getCheckMate()) {
+            //Special move kingside rook
+            Position posT1 = new Position(position.getRow(), position.getColumn() + 3);
+            if (testRookCastling(posT1)) {
+                Position position1 = new Position(position.getRow(), position.getColumn() + 1);
+                Position position2 = new Position(position.getRow(), position.getColumn() + 2);
+                if (getBoard().piece(position1) == null && getBoard().piece(position2) == null) {
+                    possibleMoves[position.getRow()][position.getColumn() + 2] = true;
+                }
+            }
+            //Special move queenside rook
+            Position posT2 = new Position(position.getRow(), position.getColumn() - 4);
+            if (testRookCastling(posT2)) {
+                Position position1 = new Position(position.getRow(), position.getColumn() - 1);
+                Position position2 = new Position(position.getRow(), position.getColumn() - 2);
+                Position position3 = new Position(position.getRow(), position.getColumn() - 3);
+                if (getBoard().piece(position1) == null && getBoard().piece(position2) == null && getBoard().piece(position3) == null) {
+                    possibleMoves[position.getRow()][position.getColumn() - 2] = true;
+                }
+            }
         }
         return possibleMoves;
     }
