@@ -34,6 +34,12 @@ public class Runner {
                 if (capturedPiece != null) {
                     capturedPieces.add(capturedPiece);
                 }
+                if (chessMatch.getPromoted() != null) {
+                    System.out.println("Enter piece for promotion (B/N/R/Q): ");
+                    scanner.nextLine();
+                    String type = scanner.nextLine();
+                    chessMatch.replacePromotedPiece(type);
+                }
             } catch (ChessException e) {
                 System.out.println(e.getMessage());
                 scanner.nextLine();
