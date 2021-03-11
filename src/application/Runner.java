@@ -6,10 +6,7 @@ import model.chess.entities.ChessPiece;
 import model.chess.entities.ChessPosition;
 import model.chess.exceptions.ChessException;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Runner {
 
@@ -35,10 +32,14 @@ public class Runner {
                     capturedPieces.add(capturedPiece);
                 }
                 if (chessMatch.getPromoted() != null) {
-                    System.out.println("Enter piece for promotion (B/N/R/Q): ");
                     scanner.nextLine();
-                    String type = scanner.nextLine();
-                    chessMatch.replacePromotedPiece(type);
+                    System.out.println("Enter piece for promotion (B/N/R/Q): ");
+                    String type = scanner.nextLine().toUpperCase();
+                    while (!type.equals("B") && !type.equals("N") && !type.equals("R") && !type.equals("Q")) {
+                        System.out.println("Invalid value! Enter piece for promotion (B/N/R/Q): ");
+                        type = scanner.nextLine().toUpperCase();
+                    }
+                        chessMatch.replacePromotedPiece(type);
                 }
             } catch (ChessException e) {
                 System.out.println(e.getMessage());
